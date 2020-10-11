@@ -3,7 +3,7 @@ import bookTitleReducer from './bookTitle.reducer'
 
 
 const rootReducer = combineReducers({
-books: bookTitleReducer,
+book: bookTitleReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>

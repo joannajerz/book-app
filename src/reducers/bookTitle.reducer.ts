@@ -1,5 +1,5 @@
 import { BookActionTypes, BOOK_TITLE_SELECT } from './../constans/bookTitle.constans';
-import { BookState } from '../models/Book';
+import { BookState} from '../models/book';
 
 const initialState: BookState = {
   books: [],
