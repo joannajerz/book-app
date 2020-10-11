@@ -1,21 +1,19 @@
 import * as React from 'react';
 import 'antd/dist/antd.css';
-import selectTitle from '../actions/bookTitle.action';
+import {selectTitle} from '../actions/bookFilter.action';
 import { useDispatch } from 'react-redux';
 import { Input } from 'antd';
-const { Search } = Input;
 
 const BookSearch: React.FC = () => {
   const dispatch = useDispatch()
-  const searchCallback = React.useCallback((value) => { dispatch(selectTitle(value))
+  const searchCallback = React.useCallback((e) => { dispatch(selectTitle(e.target.value))
   }, [dispatch]);
 
   return (
-    <Search
+    <Input
     placeholder="wpisz tytuł ksiązki"
-    enterButton="Search"
     size="large"
-    onSearch={searchCallback}
+    onChange={searchCallback}
   />
   );
 };

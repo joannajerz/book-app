@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
-import bookTitleReducer from './bookTitle.reducer'
-import bookAuthorReducer from './bookAuthor.reducer'
+import bookFilterReducer from './bookFilter.reducer'
+
 
 
 const rootReducer = combineReducers({
-book: bookTitleReducer,
-author: bookAuthorReducer,
+filters: bookFilterReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>

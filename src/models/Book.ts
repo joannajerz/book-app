@@ -5,6 +5,8 @@ export interface Book {
     description: string,
     image: string
 }
-export interface BookState {
-    books: Book[]
+export interface FiltersState {
+    title: string,
+    language: string,
+    author: string
   }

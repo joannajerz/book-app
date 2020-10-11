@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import { Book } from '../models/Book';
 import { useSelector } from 'react-redux';
 import selectBook from '../selectors/bookTitle.selector';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 import BookDescription from './BookDescription';
 import selectAuthor from '../selectors/bookAuthor.selector';
 
@@ -17,7 +17,7 @@ const BookShelf: React.FC = () => {
     const selectedAuthor = useSelector(selectAuthor);
 
 
-    React.useEffect(() => {
+    const handleButtonClick= React.useCallback(() => {
         if (selectedTitle.length>2){
         fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${selectedTitle}+inauthor:${selectedAuthor}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs`)
         .then((response) => response.json())
@@ -25,13 +25,15 @@ const BookShelf: React.FC = () => {
                 title: element.volumeInfo.title,
                 id: element.id,
                 description: element.volumeInfo.description || "brak opisu",
-                image: element.volumeInfo.imageLinks.thumbnail || "brak"
+                image: element.volumeInfo.imageLinks.thumbnail
             }
             })));
     }}, [selectedTitle, selectedAuthor]);
 
 
   return (
+      <>
+      <Button onClick={handleButtonClick}>Szukaj</Button>
       <ul>
     {books.map((book)=>(
     <li>
@@ -45,6 +47,7 @@ const BookShelf: React.FC = () => {
         </Card>
     </li>))}
   </ul>
+  </>
   );
 };
 

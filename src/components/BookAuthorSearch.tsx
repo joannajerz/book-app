@@ -1,21 +1,36 @@
 import * as React from 'react';
 import 'antd/dist/antd.css';
-import selectAuthor from '../actions/bookAuthor.action';
+import{ selectAuthor,  selectLanguage} from '../actions/bookFilter.action';
 import { useDispatch } from 'react-redux';
 import { Input } from 'antd';
-const { Search } = Input;
+import { Radio } from 'antd';
+
+
+
 
 const BookAuthorSearch: React.FC = () => {
   const dispatch = useDispatch()
-  const searchCallback = React.useCallback((value) => { dispatch(selectAuthor(value))
+
+  const searchCallback = React.useCallback((e) => { dispatch(selectAuthor(e.target.value))
   }, [dispatch]);
+  const languageCallback = React.useCallback((e) => { dispatch(selectLanguage(e.target.value))}
+  , [dispatch]);
+
 
   return (
-    <Search
+      <>
+    <Input
     placeholder="wpisz autora ksiązki"
     size="large"
-    onSearch={searchCallback}
+    onChange={searchCallback}
   />
+  <p>Wybierz język</p>
+    <Radio.Group defaultValue="en" buttonStyle="solid" onChange={languageCallback}>
+    <Radio.Button value="en">Angielski</Radio.Button>
+    <Radio.Button value="pl">Polski</Radio.Button>
+    <Radio.Button value="fr">Francuski</Radio.Button>
+  </Radio.Group>
+  </>
   );
 };
 
