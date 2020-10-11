@@ -8,7 +8,7 @@ const { Search } = Input;
 const BookSearch: React.FC = () => {
   const dispatch = useDispatch()
   const searchCallback = React.useCallback((value) => { dispatch(selectTitle(value))
-  }, []);
+  }, [dispatch]);
 
   return (
     <Search
