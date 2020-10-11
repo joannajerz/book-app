@@ -4,6 +4,7 @@ import { Book } from '../models/Book';
 import { useSelector } from 'react-redux';
 import selectBook from '../selectors/bookTitle.selector';
 import { Card } from 'antd';
+import BookDescription from './BookDescription';
 
 
 
@@ -36,7 +37,8 @@ const BookShelf: React.FC = () => {
         style={{ width: 240 }}
         cover={<img alt={book.title} src={book.image} />}
         >
-        <Meta title={book.title} description={book.description} />
+            <Meta title={book.title} />
+            <BookDescription book={book}></BookDescription>
         </Card>
     </li>))}
   </ul>
