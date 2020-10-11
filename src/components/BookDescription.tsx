@@ -17,15 +17,15 @@ const BookDescription = (
         if (book.description.length > splitLength) {
             
             setshortenedText(book.description.slice(0, splitLength))
-            console.log("jestem w ifmie")
+        }
+        else {
+            setshortenedText(book.description)
         }
     }, [book, setshortenedText, splitLength])
     
     const handleToggle = useCallback(() => {
         setIsExpanded(!isExpanded)
-        console.log("test", shortenedText)
-        console.log(book.description)
-    }, [setIsExpanded, isExpanded, shortenedText, book])
+    }, [setIsExpanded, isExpanded ])
 
     return <div >
         <div>

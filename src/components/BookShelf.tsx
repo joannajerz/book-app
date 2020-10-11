@@ -15,13 +15,13 @@ const BookShelf: React.FC = () => {
     const [books, setBooks] =  React.useState<Book[]>([])
 
     React.useEffect(() => {
-        if (selectedTitle.length>0){
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${selectedTitle}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs`)
+        if (selectedTitle.length>2){
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${selectedTitle}+intitle:${selectedTitle}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs`)
         .then((response) => response.json())
         .then((json) => setBooks(json.items.map((element: any)=>{return{
                 title: element.volumeInfo.title,
                 id: element.id,
-                description: element.volumeInfo.description,
+                description: element.volumeInfo.description || "brak opisu",
                 image: element.volumeInfo.imageLinks.thumbnail
             }
             })));
