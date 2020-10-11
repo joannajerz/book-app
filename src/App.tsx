@@ -4,12 +4,14 @@ import BookSearch from './components/BookSearch'
 import { Provider } from 'react-redux';
 import store from '../src/store'
 import BookShelf from './components/BookShelf';
+import BookAuthorSearch from './components/BookAuthorSearch';
 
 
 function App() {
   return (
     <div className="App">
         <BookSearch/>
+        <BookAuthorSearch/>
         <BookShelf/>
     </div>
   );
