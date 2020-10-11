@@ -2,7 +2,7 @@ import  rootReducer  from './reducers/index';
 import { createStore } from 'redux';
 
 const store = createStore(
-  rootReducer,
-);
+  rootReducer,    (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+  );
 
 export default store;
