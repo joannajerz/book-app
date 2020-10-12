@@ -9,4 +9,4 @@ export interface FiltersState {
     title: string,
     language: string,
     author: string
-  }
+};

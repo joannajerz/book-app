@@ -6,6 +6,8 @@ import selectBook from '../selectors/bookTitle.selector';
 import { Card, Button } from 'antd';
 import BookDescription from './BookDescription';
 import selectAuthor from '../selectors/bookAuthor.selector';
+import selectLanguage from '../selectors/bookLanguage.selector'
+import filterParams from './filterParams';
 
 
 
@@ -15,11 +17,12 @@ const BookShelf: React.FC = () => {
     const selectedTitle = useSelector(selectBook);
     const [books, setBooks] =  React.useState<Book[]>([])
     const selectedAuthor = useSelector(selectAuthor);
+    const selectedLanguage = useSelector(selectLanguage)
 
 
     const handleButtonClick= React.useCallback(() => {
-        if (selectedTitle.length>2){
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${selectedTitle}+inauthor:${selectedAuthor}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs`)
+        if (selectedTitle.length>2 || selectedAuthor.length>2){
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${filterParams(selectedTitle, selectedAuthor, selectedLanguage)}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs`)
         .then((response) => response.json())
         .then((json) => setBooks(json.items.map((element: any)=>{return{
                 title: element.volumeInfo.title,
@@ -28,7 +31,7 @@ const BookShelf: React.FC = () => {
                 image: element.volumeInfo.imageLinks.thumbnail
             }
             })));
-    }}, [selectedTitle, selectedAuthor]);
+    }}, [selectedTitle, selectedAuthor, selectedLanguage]);
 
 
   return (
