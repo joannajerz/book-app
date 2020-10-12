@@ -14,6 +14,8 @@ const BookSearch: React.FC = () => {
     placeholder="wpisz tytuł ksiązki"
     size="large"
     onChange={searchCallback}
+    style={{    margin: '100px 0px 26px 30px', maxWidth:'700px'
+    }}
   />
   );
 };

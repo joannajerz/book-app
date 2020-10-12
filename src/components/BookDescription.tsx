@@ -35,7 +35,7 @@ const BookDescription = (
                 : shortenedText
             }
         </div>
-        <Button type ="primary"onClick={handleToggle}>
+        <Button onClick={handleToggle}>
             {isExpanded?'Less':'More'}
         </Button>
       </div >

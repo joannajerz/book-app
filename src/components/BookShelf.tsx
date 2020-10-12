@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Book } from '../models/Book';
 import { useSelector, useDispatch } from 'react-redux';
 import selectBook from '../selectors/bookTitle.selector';
 import { Card, Button } from 'antd';
@@ -23,12 +22,18 @@ const BookShelf: React.FC = () => {
     const bookLoaded = useSelector(bookLoad)
     const [startIndex, setStartIndex] = React.useState(0)
     const dispatch = useDispatch();
-    
+    const [totalItems, setTotalItems] = React.useState(0);
+
     window.onscroll = debounce(() => {
         
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            console.log("load more")
-            setStartIndex(startIndex+10)
+            const newIndex = startIndex+10
+            console.log(newIndex)
+            console.log(totalItems)
+            if (newIndex < totalItems){
+                setStartIndex(newIndex)
+                console.log("load more")
+            }
         }
       }, 100);
 
@@ -37,7 +42,9 @@ const BookShelf: React.FC = () => {
             fetch(`https://www.googleapis.com/books/v1/volumes?q=${filterParams(selectedTitle, selectedAuthor, selectedLanguage)}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs&startIndex=${startIndex}&maxResults=10`)
             .then((response) => response.json())
             .then((json) => {
-                if (json.totalItems !== 0) {
+                setTotalItems(json.totalItems);
+                if (json.items) {
+                    setEmptybooks('')
                     dispatch(fetchMoreBookSuccess(mapToBooks(json.items)))
                 }
             });
@@ -49,7 +56,8 @@ const BookShelf: React.FC = () => {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${filterParams(selectedTitle, selectedAuthor, selectedLanguage)}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs&startIndex=${startIndex}&maxResults=10`)
         .then((response) => response.json())
         .then((json) => {
-            if (json.totalItems !== 0) {   
+            setTotalItems(json.totalItems);
+            if (json.items) {   
                 setEmptybooks('')
                 dispatch(fetchBookSuccess(mapToBooks(json.items)))
             } else {
@@ -60,9 +68,13 @@ const BookShelf: React.FC = () => {
 
   return (
       <>
-      <Button type ="primary" onClick={handleButtonClick}>Szukaj</Button>
+      <Button 
+      type ="primary" 
+      onClick={handleButtonClick} 
+      style={{ marginTop:'26px', marginBottom:'26px'}}>
+        Szukaj</Button>
       { emptybooks.length === 0 ?
-      <ul>
+      <ul className="book__list">
         {bookLoaded.map((book)=>(
         <li key={book.id} >
         <Card

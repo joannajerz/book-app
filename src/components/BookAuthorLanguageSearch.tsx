@@ -8,7 +8,7 @@ import { Radio } from 'antd';
 
 
 
-const BookAuthorSearch: React.FC = () => {
+const BookAuthorLanguageSearch: React.FC = () => {
   const dispatch = useDispatch()
 
   const searchCallback = React.useCallback((e) => { dispatch(selectAuthor(e.target.value))
@@ -23,8 +23,10 @@ const BookAuthorSearch: React.FC = () => {
     placeholder="wpisz autora ksiązki"
     size="large"
     onChange={searchCallback}
+    style={{    margin: '0px 0px 26px 30px', maxWidth:'700px'
+    }}
   />
-  <p>Wybierz język</p>
+  <p className="book__input-language">Wybierz język</p>
     <Radio.Group defaultValue="en" buttonStyle="solid" onChange={languageCallback}>
     <Radio.Button value="en">Angielski</Radio.Button>
     <Radio.Button value="pl">Polski</Radio.Button>
@@ -34,4 +36,4 @@ const BookAuthorSearch: React.FC = () => {
   );
 };
 
-export default BookAuthorSearch;
+export default BookAuthorLanguageSearch;

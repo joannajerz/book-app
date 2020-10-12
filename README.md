@@ -1,3 +1,9 @@
+Google API book search.
+
+Application created as a recruitment task for the STX Next company.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
