@@ -10,3 +10,6 @@ export interface FiltersState {
     language: string,
     author: string
 };
+export interface BooksState {
+   books: Book[]
+};
