@@ -1,5 +1,5 @@
 import { BookActionTypes, BOOK_AUTHOR_SELECT, BOOK_TITLE_SELECT, BOOK_LANGUAGE_SELECT } from '../constans/bookFilter.constans';
-import { FiltersState} from '../models/book';
+import { FiltersState} from '../models/Book';
 
 const initialState: FiltersState = {
   author: "",

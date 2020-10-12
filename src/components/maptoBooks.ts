@@ -1,4 +1,4 @@
-import { Book } from "../models/book"
+import { Book } from "../models/Book"
 
 function mapToBooks(data: any): Book[]{
     return data.map(
