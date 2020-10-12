@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'antd/dist/antd.css';
 import { Book } from '../models/Book';
 import { useSelector, useDispatch } from 'react-redux';
 import selectBook from '../selectors/bookTitle.selector';
@@ -9,6 +8,7 @@ import selectAuthor from '../selectors/bookAuthor.selector';
 import selectLanguage from '../selectors/bookLanguage.selector'
 import bookLoad from '../selectors/book.selector'
 import filterParams from './filterParams';
+import mapToBooks from './maptoBooks';
 import { fetchBookSuccess, fetchMoreBookSuccess } from '../actions/bookLoadMore';
 import {debounce} from 'lodash';
 
@@ -24,20 +24,6 @@ const BookShelf: React.FC = () => {
     const [startIndex, setStartIndex] = React.useState(0)
     const dispatch = useDispatch();
     
-    const mapToBooks = (data: any): Book[] =>{
-        return data.items.map(
-            (element: any)=>{
-                let description = element.volumeInfo.description || "brak opisu"
-                let imageUrl = element.volumeInfo.imageLinks? element.volumeInfo.imageLinks.thumbnail : "https://i.ibb.co/vwY2Zhc/600px-No-image-available-svg.png"
-                return  {
-                    title: element.volumeInfo.title,
-                    id: element.id,
-                    description: description,
-                    image: imageUrl
-                }
-            }
-    )
-    }
     window.onscroll = debounce(() => {
         
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -52,7 +38,7 @@ const BookShelf: React.FC = () => {
             .then((response) => response.json())
             .then((json) => {
                 if (json.totalItems !== 0) {
-                    dispatch(fetchMoreBookSuccess(mapToBooks(json)))
+                    dispatch(fetchMoreBookSuccess(mapToBooks(json.items)))
                 }
             });
         }
@@ -65,7 +51,7 @@ const BookShelf: React.FC = () => {
         .then((json) => {
             if (json.totalItems !== 0) {   
                 setEmptybooks('')
-                dispatch(fetchBookSuccess(mapToBooks(json)))
+                dispatch(fetchBookSuccess(mapToBooks(json.items)))
             } else {
                 setEmptybooks('Brak wyników')
             }
@@ -74,15 +60,15 @@ const BookShelf: React.FC = () => {
 
   return (
       <>
-      <Button onClick={handleButtonClick}>Szukaj</Button>
+      <Button type ="primary" onClick={handleButtonClick}>Szukaj</Button>
       { emptybooks.length === 0 ?
       <ul>
         {bookLoaded.map((book)=>(
-        <li>
+        <li key={book.id} >
         <Card
         hoverable
         style={{ width: 240 }}
-        cover={<img alt={book.title} src={book.image} />}
+        cover={<img alt={book.title} src={book.image}/>}
         >
             <Meta title={book.title} />
             <BookDescription book={book}></BookDescription>

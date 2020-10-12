@@ -1,0 +1,10 @@
+{
+    "prettier.jsxSingleQuote": true,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.packageManager": "yarn",
+    "prettier.arrayExpand": true,
+    "prettier.alignObjectProperties": true,
+    "prettier.bracesSpacing": false,
+    "prettier.autoScroll": false,
+    "prettier.openOutput": false
+}
