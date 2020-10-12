@@ -16,30 +16,46 @@ const { Meta } = Card;
 const BookShelf: React.FC = () => {
     const selectedTitle = useSelector(selectBook);
     const [books, setBooks] =  React.useState<Book[]>([])
+    const [emptybooks, setEmptybooks] = React.useState('')
     const selectedAuthor = useSelector(selectAuthor);
     const selectedLanguage = useSelector(selectLanguage)
+    let startIndex = 0;
+    let maxResults = 10;
 
 
     const handleButtonClick= React.useCallback(() => {
         if (selectedTitle.length>2 || selectedAuthor.length>2){
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${filterParams(selectedTitle, selectedAuthor, selectedLanguage)}&key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs`)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${filterParams(selectedTitle, selectedAuthor, selectedLanguage)}
+        &key=AIzaSyCh1MEAecm6_wXVqeRNCjFg4nBzmUTRQgs&startIndex=${startIndex}&maxResults=${maxResults}`)
         .then((response) => response.json())
-        .then((json) => setBooks(json.items.map((element: any)=>{return{
-                title: element.volumeInfo.title,
-                id: element.id,
-                description: element.volumeInfo.description || "brak opisu",
-                image: element.volumeInfo.imageLinks.thumbnail
-            }
-            })));
-    }}, [selectedTitle, selectedAuthor, selectedLanguage]);
-
+        .then((json) => {if (json.totalItems !== 0) {   
+                setEmptybooks('')
+                setBooks(
+                    json.items.map(
+                        (element: any)=>{
+                            let description = element.volumeInfo.description || "brak opisu"
+                            let imageUrl = element.volumeInfo.imageLinks? element.volumeInfo.imageLinks.thumbnail : "https://i.ibb.co/vwY2Zhc/600px-No-image-available-svg.png"
+                            return  {
+                                title: element.volumeInfo.title,
+                                id: element.id,
+                                description: description,
+                                image: imageUrl
+                            }
+                        }
+            ))} else {
+                setEmptybooks('Brak wyników')
+            }});
+    }}, [selectedTitle, selectedAuthor, selectedLanguage, maxResults, startIndex]);
+    
+    
 
   return (
       <>
       <Button onClick={handleButtonClick}>Szukaj</Button>
+      { emptybooks.length === 0 ?
       <ul>
-    {books.map((book)=>(
-    <li>
+        {books.map((book)=>(
+        <li>
         <Card
         hoverable
         style={{ width: 240 }}
@@ -49,7 +65,11 @@ const BookShelf: React.FC = () => {
             <BookDescription book={book}></BookDescription>
         </Card>
     </li>))}
-  </ul>
+    </ul>: <p>{emptybooks}</p>}
+    <Button>        >
+          Pokaż więcej
+
+        </Button>
   </>
   );
 };
