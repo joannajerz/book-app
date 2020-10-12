@@ -69,24 +69,23 @@ const BookShelf: React.FC = () => {
   return (
       <>
       <Button 
-      type ="primary" 
-      onClick={handleButtonClick} 
-      style={{ marginTop:'26px', marginBottom:'26px'}}>
-        Szukaj</Button>
+        type ="primary" 
+        onClick={handleButtonClick} 
+        style={{ marginTop:'26px', marginBottom:'26px'}}>Szukaj</Button>
       { emptybooks.length === 0 ?
-      <ul className="book__list">
-        {bookLoaded.map((book)=>(
-        <li key={book.id} >
-        <Card
-        hoverable
-        style={{ width: 240 }}
-        cover={<img alt={book.title} src={book.image}/>}
-        >
-            <Meta title={book.title} />
-            <BookDescription book={book}></BookDescription>
-        </Card>
-    </li>))}
-    </ul>: <p>{emptybooks}</p>}
+        <ul className="book__list">
+            {bookLoaded.map((book)=>(
+                <li key={book.id} >
+                    <Card
+                        hoverable
+                        style={{ width: 240 }}
+                        cover={<img alt={book.title} src={book.image}/>}
+                        >
+                            <Meta title={book.title} />
+                            <BookDescription book={book}></BookDescription>
+                    </Card>
+                </li>))}
+                </ul> : <p>{emptybooks}</p>}
   </>
   );
 };

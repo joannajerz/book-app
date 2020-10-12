@@ -10,11 +10,12 @@ import { Radio } from 'antd';
 
 const BookAuthorLanguageSearch: React.FC = () => {
   const dispatch = useDispatch()
-
-  const searchCallback = React.useCallback((e) => { dispatch(selectAuthor(e.target.value))
+  const searchCallback = React.useCallback((e) => { 
+    dispatch(selectAuthor(e.target.value))
   }, [dispatch]);
-  const languageCallback = React.useCallback((e) => { dispatch(selectLanguage(e.target.value))}
-  , [dispatch]);
+  const languageCallback = React.useCallback((e) => { 
+    dispatch(selectLanguage(e.target.value))
+  }, [dispatch]);
 
 
   return (
@@ -23,7 +24,8 @@ const BookAuthorLanguageSearch: React.FC = () => {
     placeholder="wpisz autora ksiązki"
     size="large"
     onChange={searchCallback}
-    style={{    margin: '0px 0px 26px 30px', maxWidth:'700px'
+    style={{   
+       margin: '0px 0px 26px 30px', maxWidth:'700px'
     }}
   />
   <p className="book__input-language">Wybierz język</p>

@@ -6,20 +6,17 @@ interface BookDescriptionProps {
     book: Book,
 } 
 
-const BookDescription = (
-    { book }: BookDescriptionProps,
-  ) =>{
+const BookDescription = ({ book }: BookDescriptionProps) => {
     const splitLength = 200
     const [isExpanded, setIsExpanded] = useState(false)
     const [shortenedText, setshortenedText] = useState('')
 
     useEffect(() => {
         if (book.description.length > splitLength) {
-            
-            setshortenedText(book.description.slice(0, splitLength))
+                setshortenedText(book.description.slice(0, splitLength))
         }
         else {
-            setshortenedText(book.description)
+                setshortenedText(book.description)
         }
     }, [book, setshortenedText, splitLength])
     
