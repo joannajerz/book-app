@@ -1,6 +1,5 @@
 Google API book search.
 
-Application created as a recruitment task for the STX Next company.
 
 ![website photo](https://github.com/joannajerz/book-app/blob/main/public/screen.png)
 
